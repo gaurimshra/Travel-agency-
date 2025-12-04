@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamTrails Travel Agency</title>
+
+    <!-- INTERNAL CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body {
+            background-color: #f4f5f7;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #ffffffee;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #ff7b39;
+        }
+
+        nav a {
+            margin-left: 1.2rem;
+            text-decoration: none;
+            font-size: 0.95rem;
+            color: #444;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        nav a:hover {
+            color: #ff7b39;
+            transform: translateY(-1px);
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 3.5rem 8%;
+            background: linear-gradient(135deg, #fff, #ffe7d4);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            flex: 1 1 320px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-text p {
+            max-width: 450px;
+            color: #555;
+        }
+
+        .hero-btns {
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.3rem;
+            margin-right: 0.8rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.1s, box-shadow 0.1s;
+        }
+
+        .btn.primary {
+            background: #ff7b39;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(255, 123, 57, 0.4);
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: #fff;
+            color: #ff7b39;
+            border-color: #ff7b39;
+        }
+
+        .btn.secondary:hover {
+            background: #ff7b39;
+            color: #fff;
+        }
+
+        .hero-image {
+            flex: 0 1 280px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Generic section styling */
+        section {
+            padding: 3.5rem 8%;
+        }
+
+        .grey {
+            background: #f0f2f5;
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.45rem;
+            width: 60px;
+            height: 3px;
+            background: #ff7b39;
+            border-radius: 999px;
+        }
+
+        /* Tour Packages */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .package-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .package-content {
+            padding: 1rem 1.1rem 1.3rem;
+        }
+
+        .package-content h3 {
+            margin-bottom: 0.3rem;
+        }
+
+        .package-content p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .price {
+            margin-top: 0.7rem;
+            font-weight: 600;
+            color: #ff7b39;
+        }
+
+        /* Booking form */
+        .booking-wrapper {
+            display: grid;
+            grid-template-columns: minmax(260px, 1.2fr) minmax(260px, 1fr);
+            gap: 2rem;
+        }
+
+        .booking-text {
+            color: #555;
+        }
+
+        form {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 14px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        form .form-group {
+            margin-bottom: 0.9rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.55rem 0.7rem;
+            border-radius: 8px;
+            border: 1px solid #d0d0d0;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #ff7b39;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Travel tips */
+        .tips-list {
+            list-style: none;
+            margin-top: 0.6rem;
+        }
+
+        .tips-list li {
+            margin-bottom: 0.45rem;
+            padding-left: 1rem;
+            position: relative;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .tips-list li::before {
+            content: "✈";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.8rem;
+            color: #ff7b39;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.9rem;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.4rem 8%;
+            text-align: center;
+            font-size: 0.85rem;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+
+            nav a {
+                margin-left: 0;
+                margin-right: 0.8rem;
+            }
+
+            .hero {
+                padding-top: 2.4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.1rem;
+            }
+
+            .booking-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <header>
+        <div class="logo">DreamTrails<span> Travels</span></div>
+        <nav>
+            <a href="#packages">Packages</a>
+            <a href="#booking">Booking</a>
+            <a href="#tips">Travel Tips</a>
+            <a href="#gallery">Gallery</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Explore the World with DreamTrails</h1>
+            <p>
+                From beaches to mountains, we design custom tour packages
+                that fit your budget, schedule and travel dreams.
+            </p>
+            <div class="hero-btns">
+                <a href="#packages" class="btn primary">View Tour Packages</a>
+                <a href="#booking" class="btn secondary">Book Your Trip</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <!-- you can replace the src with your own image -->
+            <img src="https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg" alt="Travel">
+        </div>
+    </section>
+
+    <!-- TOUR PACKAGES -->
+    <section id="packages">
+        <h2>Popular Tour Packages</h2>
+        <div class="packages-grid">
+            <div class="package-card">
+                <img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg" alt="Goa Beach">
+                <div class="package-content">
+                    <h3>Goa Beach Getaway</h3>
+                    <p>3 Nights / 4 Days – Beaches, nightlife, water sports and sunset cruises.</p>
+                    <p class="price">Starting from ₹14,999 per person</p>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg" alt="Himalayan">
+                <div class="package-content">
+                    <h3>Himalayan Adventure</h3>
+                    <p>5 Nights / 6 Days – Hills, trekking, camping and scenic road trips.</p>
+                    <p class="price">Starting from ₹24,999 per person</p>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <img src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg" alt="Jaipur">
+                <div class="package-content">
+                    <h3>Royal Rajasthan Tour</h3>
+                    <p>4 Nights / 5 Days – Forts, palaces, desert safari and cultural shows.</p>
+                    <p class="price">Starting from ₹19,999 per person</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING SECTION -->
+    <section id="booking" class="grey">
+        <h2>Book Your Trip</h2>
+        <div class="booking-wrapper">
+            <div class="booking-text">
+                <p>
+                    Fill the form with your travel details and our team will contact you
+                    with the best deals and customised itinerary.
+                </p>
+                <p style="margin-top: 0.7rem;">
+                    You can choose any of our packages or request a fully custom trip
+                    according to your budget, dates and preferred destinations.
+                </p>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input id="name" type="text" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Preferred Destination</label>
+                    <select id="destination">
+                        <option>Goa</option>
+                        <option>Himalayas</option>
+                        <option>Rajasthan</option>
+                        <option>International</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Travel Date</label>
+                    <input id="date" type="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="people">Number of Travelers</label>
+                    <input id="people" type="number" min="1" value="2">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Additional Details</label>
+                    <textarea id="message" placeholder="Tell us your budget, hotel type, etc."></textarea>
+                </div>
+
+                <button type="submit" class="btn primary">Submit Booking Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- TRAVEL TIPS -->
+    <section id="tips">
+        <h2>Travel Tips</h2>
+        <p>Make your trip smoother and safer with these quick tips:</p>
+        <ul class="tips-list">
+            <li>Always carry photocopies of your ID proofs and keep the originals safe.</li>
+            <li>Keep some local currency with you for small shops and emergencies.</li>
+            <li>Check the weather forecast and pack according to the season.</li>
+            <li>Buy a basic travel insurance plan for medical and luggage safety.</li>
+            <li>Keep digital backups of tickets, hotel bookings and travel documents.</li>
+        </ul>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="grey">
+        <h2>Destination Gallery</h2>
+        <p style="margin-bottom: 1rem;">A glimpse of the beautiful places we can take you to:</p>
+        <div class="gallery-grid">
+            <img src="https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg" alt="Beach">
+            <img src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg" alt="Mountains">
+            <img src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg" alt="City">
+            <img src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg" alt="Road">
+            <img src="https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg" alt="Island">
+            <img src="https://images.pexels.com/photos/3185488/pexels-photo-3185488.jpeg" alt="Temple">
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 DreamTrails Travel Agency. All rights reserved.
+    </footer>
+</body>
+</html>
